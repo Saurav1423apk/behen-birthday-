@@ -6,71 +6,84 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <style>
     body {
-      margin:0;
-      font-family:sans-serif;
-      text-align:center;
+      margin: 0;
+      font-family: sans-serif;
+      text-align: center;
       background: linear-gradient(120deg, #ffe2e2, #f0e0ff);
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
-    h1 { font-size:2.5em; }
+    .slide { display: none; padding: 20px; }
+    .slide.active { display: block; }
     .btn {
-      padding:1em 2em;
-      margin:1em;
-      font-size:1.2em;
-      background:#ff4081;
-      color:#fff;
-      border:none;
-      border-radius:10px;
-      cursor:pointer;
+      padding: 1em 2em;
+      margin: 1em;
+      font-size: 1.2em;
+      background: #ff4081;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
     }
-    #cake, #msg { display:none; margin-top:20px; }
-    #cake img { width:70%; border-radius:15px; }
-    #msg p { line-height:1.5; font-size:1.1em; margin:0.5em 0;}
+    #cake img {
+      width: 70%;
+      border-radius: 15px;
+    }
+    p { font-size: 1.1em; line-height: 1.6em; }
   </style>
 </head>
 <body>
+
+<div class="slide active" id="slide1">
   <h1>🌞 Good Morning Behen Ji!! 🌸😊💛</h1>
-  <button class="btn" onclick="startBirthday()">Go Ahead ➡</button>
+  <button class="btn" onclick="nextSlide()">Go Ahead ➡</button>
+</div>
 
-  <div id="birthday" style="display:none;">
-    <h1>🎉 Happy Birthday Behen Ji 🎂🎈💖</h1>
-    <button class="btn" onclick="showCake()">Aur Padh Abhi 📖</button>
-  </div>
+<div class="slide" id="slide2">
+  <h1>🎉 Happy Birthday Behen Ji 🎂🎈💖</h1>
+  <button class="btn" onclick="nextSlide()">Aur Padh Abhi 📖</button>
+</div>
 
-  <div id="cake">
-    <img src="https://i.imgur.com/kvD1Qfi.png" alt="Birthday Cake">
-    <button class="btn" onclick="cutCake()">🎂 Cut the Cake</button>
-  </div>
+<div class="slide" id="slide3">
+  <img src="https://i.imgur.com/kvD1Qfi.png" alt="Birthday Cake">
+  <h2>🎉 Birthday Whistles 🎉</h2>
+  <button class="btn" onclick="cutCake()">🎂 Cut the Cake</button>
+  <div id="candles"></div>
+</div>
 
-  <audio id="tune" src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Happy-Birthday.mp3"></audio>
+<div class="slide" id="slide4">
+  <p>🌈 Meri bacchi ko janamdin mubarak tu sada aise muskurati aur khilkhilati rahe... 🧿🫶</p>
+  <p>I wish yeh janamdin tera sabse special ho...</p>
+  <p>Iske saath apni ladai bhi thodi si special ho aur apna pyaar bhi hamesha k liye bana rahe aur ham jaldi se milee real me !!🧿🤭</p>
+  <p>Baaki ek aur baar Janamdin ki dheeeer saari badhayii 🥹❤‍🩹</p>
+  <p>LOVEE YOU BOHOT SAARA BEHEN 🧿🫶</p>
+  <button class="btn" onclick="nextSlide()">Next</button>
+</div>
 
-  <script>
-    function startBirthday(){
-      document.body.innerHTML = document.getElementById('birthday').outerHTML;
-    }
-    function showCake(){
-      document.body.innerHTML = document.getElementById('cake').outerHTML;
-    }
-    function cutCake(){
-      document.getElementById('tune').play();
-      const cakeDiv = document.getElementById('cake');
-      cakeDiv.innerHTML += '<p>🕯🎈🎉</p>';
-      setTimeout(showMessage, 3000);
-    }
-    function showMessage(){
-      document.body.innerHTML =
-        '<div id="msg">' +
-        '<p>🌈 Meri bacchi ko janamdin mubarak tu sada aise muskurati aur khilkhilati rahe... 🧿🫶</p>' +
-        '<p>I wish yeh janamdin tera sabse special ho...</p>' +
-        '<p>Iske saath apni ladai bhi thodi si special ho aur apna pyaar bhi hamesha k liye bana rahe aur ham jaldi se milee real me !!🧿🤭</p>' +
-        '<p>Baaki ek aur baar Janamdin ki dheeeer saari badhayii 🥹❤‍🩹</p>' +
-        '<p>LOVEE YOU BOHOT SAARA BEHEN 🧿🫶</p>' +
-        '<h2>~ Your Princess 👑💖</h2>' +
-        '</div>';
-    }
-  </script>
+<div class="slide" id="slide5">
+  <h2>~ Your Princess 👑💖</h2>
+</div>
+
+<audio id="tune" src="https://www.learningcontainer.com/wp-content/uploads/2020/02/Happy-Birthday.mp3"></audio>
+
+<script>
+  let currentSlide = 1;
+
+  function nextSlide() {
+    document.getElementById(slide${currentSlide}).classList.remove("active");
+    currentSlide++;
+    document.getElementById(slide${currentSlide}).classList.add("active");
+  }
+
+  function cutCake() {
+    document.getElementById("tune").play();
+    document.getElementById("candles").innerHTML = "<p>🕯🕯🕯 Balloons flying 🎈🎈🎈</p>";
+    setTimeout(() => nextSlide(), 3000);
+  }
+</script>
+
 </body>
 </html>
